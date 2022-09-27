@@ -22,6 +22,7 @@ namespace TicTacToe
         int[] playerTwo = new int[4];
         int countOne = 0;
         int countTwo = 0;
+        List<int> usedSpace = new List<int>(9);
 
         internal BoardModel()
         {
@@ -41,6 +42,9 @@ namespace TicTacToe
                 playerTwo[countTwo] = cell;
                 countTwo++;
             }
+
+            usedSpace.Add(cell);
+
         }
 
         // This method determines whether a player has a winninng combination of cellIDs 
@@ -129,6 +133,29 @@ namespace TicTacToe
 
             return winList;
 
+        }
+
+        //This method is responsible for checking the available spaces of the gameboard 
+        //and returning a integer ID representing AI opponent selected space
+        public int AIPick()
+        {
+            int size =  9 - (countOne + countTwo);
+            int[] freeSpace = new int[size];
+            int count = 0;
+
+            for(int i = 0; i < 8; i++)
+            {
+                if (!usedSpace.Contains(i))
+                {
+                    freeSpace[count] = i;
+                    count++;
+                }
+            }
+
+            Random rand = new Random();
+            int randindex = rand.Next(0, count);
+            int pick = freeSpace[randindex];
+            return pick;
         }
     }
 }

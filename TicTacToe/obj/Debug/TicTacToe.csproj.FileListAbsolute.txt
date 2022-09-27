@@ -58,3 +58,13 @@ C:\Users\ninjakid362\Desktop\PVP\TicTacToe\obj\Debug\TicTacToe.csproj.GenerateRe
 C:\Users\ninjakid362\Desktop\PVP\TicTacToe\obj\Debug\TicTacToe.csproj.CoreCompileInputs.cache
 C:\Users\ninjakid362\Desktop\PVP\TicTacToe\obj\Debug\TicTacToe.exe
 C:\Users\ninjakid362\Desktop\PVP\TicTacToe\obj\Debug\TicTacToe.pdb
+C:\Users\ninjakid362\Desktop\PvAI\TicTacToe\bin\Debug\TicTacToe.exe.config
+C:\Users\ninjakid362\Desktop\PvAI\TicTacToe\bin\Debug\TicTacToe.exe
+C:\Users\ninjakid362\Desktop\PvAI\TicTacToe\bin\Debug\TicTacToe.pdb
+C:\Users\ninjakid362\Desktop\PvAI\TicTacToe\obj\Debug\TicTacToe.csproj.AssemblyReference.cache
+C:\Users\ninjakid362\Desktop\PvAI\TicTacToe\obj\Debug\TicTacToe.frmTicTacToe.resources
+C:\Users\ninjakid362\Desktop\PvAI\TicTacToe\obj\Debug\TicTacToe.Properties.Resources.resources
+C:\Users\ninjakid362\Desktop\PvAI\TicTacToe\obj\Debug\TicTacToe.csproj.GenerateResource.cache
+C:\Users\ninjakid362\Desktop\PvAI\TicTacToe\obj\Debug\TicTacToe.csproj.CoreCompileInputs.cache
+C:\Users\ninjakid362\Desktop\PvAI\TicTacToe\obj\Debug\TicTacToe.exe
+C:\Users\ninjakid362\Desktop\PvAI\TicTacToe\obj\Debug\TicTacToe.pdb

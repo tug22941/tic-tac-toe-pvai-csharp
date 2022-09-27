@@ -25,9 +25,9 @@ namespace TicTacToe
         }
         //Global variables declaration
         string player1name;                                         //declare variable to hold player 1 name
-        string player2name;                                         //declare variable to hold player 2 name
         List<PlayerModel> playerList = new List<PlayerModel>(2);    //create  instance of list that hold objects of type playermodel with size of 2
-        BoardModel internalBoard = new BoardModel();                //create instance of boardmodel that tracks selected cells on the board
+        BoardModel internalBoard = new BoardModel();               //create instance of boardmodel that tracks selected cells on the board
+        List<Button> spaceList = new List<Button>(9);               // create list of buttons available for AI selection
         PlayerModel currentPlayer;                                  //declare variable to hold current playermodel
         int turnCounter = 0;                                        //create counter that tracks number of moves made
 
@@ -41,13 +41,9 @@ namespace TicTacToe
             MessageBox.Show("Welcome to My Tic-Tac-Toe Game!", "WELCOME");
             btnStart.Visible = false;
             //
-            lblPlayerOne.Visible = true;
-            txtPlayerOne.Visible = true;
+            lblPlayer.Visible = true;
+            txtPlayer.Visible = true;
             btnOK1.Visible = true;
-            //
-            lblPlayerTwo.Visible = true;
-            txtPlayerTwo.Visible = true;
-            btnOK2.Visible = true;
             //
             lblInstructions.Visible = true;
         }
@@ -56,53 +52,23 @@ namespace TicTacToe
         //and setting name variable to equal that of the input
         private void btnOK_Click(object sender, EventArgs e)
         {
-            player1name = txtPlayerOne.Text.ToString();
+            player1name = txtPlayer.Text.ToString();
             if(player1name != "")
             {
-                txtPlayerOne.Enabled = false;
+                txtPlayer.Enabled = false;
                 btnOK1.Enabled = false;
                 //enable and set focus to player 2 textbox
-                btnOK2.Enabled = true;
-                txtPlayerTwo.Enabled = true;
-                txtPlayerTwo.Focus();
-                //
-                lblInstructions.Text = "Player Two, please enter your name.";
+                btnPlayGame.Visible = true;
+                lblInstructions.Text = "Press play to begin.";
             }
             else
             {
-                MessageBox.Show("No name entered for player 1, enter a name", "Blank Name");
-                txtPlayerOne.Focus();
+                MessageBox.Show("No name eneterd for player, enter a name", "Blank Name");
+                txtPlayer.Focus();
             }
            
         }
 
-        //This event handler is responsible for validating the name of the playerTwo
-        //and setting name variable to equal that of the input
-        private void btnOK2_Click(object sender, EventArgs e)
-        {
-            player2name = txtPlayerTwo.Text.ToString();
-            if ((player2name != "") && (player2name != player1name))
-            {
-                txtPlayerTwo.Enabled = false;
-                btnOK2.Enabled = false;
-                //make visible play button and change instruction display
-                btnPlayGame.Visible = true;
-                btnPlayGame.Focus();
-                lblInstructions.Text = "Press play to begin.";
-            }
-            else
-            { 
-                if(player2name == "")
-                {
-                    MessageBox.Show("No name entered for player 2, enter a name", "Blank Name");
-                }
-                else if(player2name == player1name)
-                {
-                    MessageBox.Show("Same name entered for player 1, enter a different name", "Duplicate Name");
-                }
-                txtPlayerTwo.Focus();
-            }
-        }
 
         //This handler is responsible for creating playerModel variables containing arguments 
         //of player(one or two) with corresponding token, and putting then within a list.
@@ -115,9 +81,9 @@ namespace TicTacToe
             PlayerModel p;
             p = new PlayerModel(player1name, 'X');
             playerList.Add(p);
-            p = new PlayerModel(player2name, 'O');
+            p = new PlayerModel("AI", 'O');
             playerList.Add(p);
-            currentPlayer = playerList[0]; //set current player
+            currentPlayer = playerList[0]; //set current player as Player
 
             //call method to create gameboard from rows and columns of buttons appended to the panel control
             //enable the gameboard
@@ -125,36 +91,34 @@ namespace TicTacToe
             pnlBoard.Enabled = true;
 
             //hide player name
-            lblPlayerOne.Visible = false;
-            txtPlayerOne.Text = playerList[0].Name;
+            lblPlayer.Visible = false;
+            txtPlayer.Text = playerList[0].Name;
             btnOK1.Visible = false;
-            //
-            lblPlayerTwo.Visible = false;
-            txtPlayerTwo.Text = playerList[1].Name;
-            btnOK2.Visible = false;
 
             //move player names textboxes and instruction label dynamically
-            txtPlayerOne.Location = new Point(44, 47);
-            txtPlayerOne.Font = new Font("Lato", 16, FontStyle.Bold);
-            txtPlayerOne.TextAlign = HorizontalAlignment.Center;
+            txtPlayer.Location = new Point(44, 47);
+            txtPlayer.Font = new Font("Lato", 16, FontStyle.Bold);
+            txtPlayer.TextAlign = HorizontalAlignment.Center;
             //
-            txtPlayerTwo.Location = new Point(269, 47);
-            txtPlayerTwo.Font = new Font("Lato", 16, FontStyle.Bold);
-            txtPlayerTwo.TextAlign = HorizontalAlignment.Center;
+            txtAI.Text = playerList[1].Name;
+            txtAI.Location = new Point(269, 47);
+            txtAI.Font = new Font("Lato", 16, FontStyle.Bold);
+            txtAI.TextAlign = HorizontalAlignment.Center;
+            txtAI.Visible = true;
+            //
             lblVS.Visible = true;
-            //
             lblInstructions.Location = new Point(205, 10);
 
             //display players wins labels
-            lblPlayer1Wins.Text = playerList[0].Wins.ToString();
-            lblPlayer1Wins.Visible = true;
+            lblPlayerWins.Text = playerList[0].Wins.ToString();
+            lblPlayerWins.Visible = true;
             //
-            lblPlayer2Wins.Text = playerList[1].Wins.ToString();
-            lblPlayer2Wins.Visible = true;
+            lblAIWins.Text = playerList[1].Wins.ToString();
+            lblAIWins.Visible = true;
 
             //make visible restart button and update instruction label
             btnRestart.Visible = true;
-            lblInstructions.Text = txtPlayerOne.Text + " turn.";
+            lblInstructions.Text = txtPlayer.Text + " turn.";
         }
 
         //This handler is responsible for exiting the application
@@ -188,8 +152,8 @@ namespace TicTacToe
 
                 //disable gameboard and update win display
                 pnlBoard.Enabled = false;
-                lblPlayer1Wins.Text = playerList[0].Wins.ToString();
-                lblPlayer2Wins.Text = playerList[1].Wins.ToString();
+                lblPlayerWins.Text = playerList[0].Wins.ToString();
+                lblAIWins.Text = playerList[1].Wins.ToString();
             }
             else
             {
@@ -199,9 +163,13 @@ namespace TicTacToe
                     MessageBox.Show("We have a draw!");
                     pnlBoard.Enabled = false;
                 }
+                else
+                {
+                    //call method to change the current player PlayerModel to alternative player
+                    alternateTurn();
+                }
             }
-            //call method to change the current player PlayerModel to alternative player
-            alternateTurn();
+
         }
 
         // This handler is responsible for clearing the gameboard creating a new gameboard
@@ -210,6 +178,7 @@ namespace TicTacToe
             //clear and recreated the external and internal gameboards
             pnlBoard.Controls.Clear();
             internalBoard = new BoardModel();
+            spaceList.Clear();
             createBoard();
             // reset turn counter, current player, reenable gamebaord control
             turnCounter = 0;
@@ -249,8 +218,9 @@ namespace TicTacToe
                     newButton.Name = "btn" + row + col;
                     newButton.Click += new EventHandler(Button_Click); //wire newly created buttont to Button_Click event
 
-                    // Add button to the form
+                    // Add button to the form and list of buttons
                     pnlBoard.Controls.Add(newButton);
+                    spaceList.Add(newButton);
                 } // end for col
             } // end for row
         } 
@@ -261,7 +231,14 @@ namespace TicTacToe
         {
            if(currentPlayer.Icon == 'X')
             {
+                //change current player to AI
+                //calculate AI selection in the internal board
                 currentPlayer = playerList[1];
+                int AIPick = internalBoard.AIPick();
+
+                //activa click button event handler for AI pick from button list
+                Button btnAIPick = spaceList[AIPick];
+                Button_Click(btnAIPick, null);
             }
             else
             {
